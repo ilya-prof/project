@@ -18,4 +18,5 @@ for i in range(3,4):
          content_descr=block[i+1].text
          factory_details.append([client_name,link,content_title,content_descr])  
 
-print('Готово', factory_details)
+print('Готово', factory_details) 
+лишнее
