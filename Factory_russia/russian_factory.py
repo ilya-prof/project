@@ -1,24 +1,33 @@
 import pandas as pd
 from bs4 import BeautifulSoup
+import lxml
+import re
+from tqdm import tqdm
+import time
+ 
+count = 0
+client_email = []
 
-count =0
-client_email_list = []
-for i in range(1,5):#10786
-    path = "C:/Python/russian_factory/data/" + str(i) + ".html"
-    with open(path, 'r', encoding="utf8") as f:
-        dwdata = f.read() 
-    soup = BeautifulSoup(data, "lxml")
-    client_page = soup.find_all("div",class_="content-list__descr")
-    for item in client_page:
-        count += 1
-        client_name = soup.title.text
-        client_email = item
-        client_email_list.append([client_name, client_email])
-        print(client_name, client_email)
-        print()
+path = "C:/Python/russian_factory/data/" 
+for i in  tqdm(range(1,10786)):  #range(1, 10786): 786
+    time.sleep(0.01)
+    with open(f'{path}{i}.html', 'r', encoding="utf-8") as f:
+        data = f.read() 
+    soup = BeautifulSoup(data,features="lxml")
+    link = soup.find("link").get("href")
+    client_name = soup.title.text
+    try:
+        email = soup.find(href=re.compile("@")).text
+    except:
+        email = "Нет данных"
+    try:
+        page = soup.find(href=re.compile("http:")).get("href")
+    except:
+        page = "Нет данных"
+        
 
-        # print(f'������� {count} �� 10') #+ str(1082*10))
-# # Create a DataFrame from the list
-# df_client_email = pd.DataFrame(client_email_list, columns =['client_name', 'client_email'])
-# df_client_email.to_excel('C:/Python/russian_factory/finish/db_client_email.xlsx')
+    client_email.append([client_name, email,page,link])
+# Create a DataFrame from the list
+df_client_email = pd.DataFrame(client_email, columns =['client_name', 'email','page','link'])
+df_client_email.to_excel('C:/Python/project/db_client_email.xlsx')
 
