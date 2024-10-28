@@ -8,9 +8,9 @@ from tqdm import tqdm
 import time
 
 factory_details=[]
-path = "C:/Python/project-1/Factory_russia/TEST/"
+path = "D:/Phyton/Data/factory_russia_inn/"
 
-for i in  tqdm(range(1,10)):  #range(1, 10786): 786
+for i in  tqdm(range(1,3632)):  
      time.sleep(0.01)
      with open(f'{path}{i}.html',"r",encoding="utf-8") as data:
         data = data.read()  
