@@ -1,3 +1,5 @@
+# Сайт "Заводы РФ" парсинг из скаченных файлов реквизитов (только ИНН) и данных для связывания данных в таблице с ИНН
+
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
@@ -26,4 +28,4 @@ for i in  tqdm(range(1,10)):  #range(1, 10786): 786
 
 # Create a DataFrame from the list
 df_factory_details = pd.DataFrame(factory_details, columns =['client_name','link','inn'])
-df_factory_details.to_excel('db_factory_details.xlsx')
+df_factory_details.to_excel('Factory_russia/db_factory_details.xlsx')
