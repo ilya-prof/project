@@ -18,7 +18,7 @@ for i in  tqdm(range(1,10)):  #range(1, 10786): 786
      link = soup.find(href = re.compile('http')).get("href").replace('/details','')
      #Если нет ИНН, то значение - "Нет данных"   
      try:
-         inn = soup.find(text=re.compile("ИНН")).next_element.next_element.text             
+         inn = soup.find(string= re.compile("ИНН")).find_next("span").text             
      except:
          inn= "Нет данных"             
      #Добавляем все данные в список
