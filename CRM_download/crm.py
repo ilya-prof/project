@@ -31,5 +31,3 @@ page = requests.get(url=url_path,headers=headers)
 # сохраняем в файл
 with open('CRM_download/test.html', "w", encoding='utf-8') as f:        
     f.write(page.text)
-
-#TODO сохранить в файл 

@@ -9,21 +9,24 @@ import test
 import test.test_html
 import csv
 
-#TODO открыть все ссылки на CRM и сохранить из них ИНН
+#открыть все ссылки на CRM и сохранить из них ИНН
 #Тестируем на 1 странице
-all_links = ["Путь"]
+inn_list = ["INN"]
 
-for i in range(1,79):
+for i in range(1,2):
     with open(f'CRM_download/Data/region_pages{i}.html', "r", encoding='utf-8') as f:        
         data = f.read()
     soup = BeautifulSoup(data, "lxml")
+    items = soup.find_all("tr")
+    for item in items:
+        inn = item.find("td")
+        # print(inn)
 
-    link = soup.find("div",class_="form-group").find_all("a",class_="nav-link")
-    for link in link:
-        all_links.append(link.get("href")) 
+# for link in link:
+#     all_links.append(link.get("href")) 
 
-df = pd.DataFrame(all_links)
-df.to_csv('CRM_download/links.csv', index=False)
+# df = pd.DataFrame(all_links)
+# df.to_csv('CRM_download/links.csv', index=False)
 
 # # сохраняем в файл
 # with open('CRM_download/test.html', "w", encoding='utf-8') as f:        
