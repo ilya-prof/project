@@ -31,7 +31,7 @@ for filename in os.listdir(folder_path):
                 count += 1
             else:
                 fault += 1  
-            print(f"Загружено - {count}, пустых файлов - {fault}  из {total}")
+            print(f"Загружено - {count}, пустых файлов - {fault}  из {total}, осталось - {total-count-fault}")
 # Create a DataFrame from the list
 df_email = pd.DataFrame(data_email, columns =['client_name', 'inn', 'email'])
 df_email.to_excel('D:/Download/Kontur_email.xlsx', index=True)

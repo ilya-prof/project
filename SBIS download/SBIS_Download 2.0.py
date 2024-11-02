@@ -26,7 +26,7 @@ for row in tqdm(range(2,sheet.max_row+1)):
     client_name = filename[0:filename.find("ИНН")-1]
     
     data_email.append([client_name,inn,email])
-
-# # Create a DataFrame from the list
-df_email = pd.DataFrame(data_email, columns =['client_name', 'inn', 'email'])
-df_email.to_excel('D:/Download/Sbis_email.xlsx', index=True)
+    # # Create a DataFrame from the list
+    df_email = pd.DataFrame(data_email, columns =['client_name', 'inn', 'email'])
+    df_email.to_excel('Sbis_email.xlsx', index=True)
+    # Если не работает, то добавить sleep 12 секунд
