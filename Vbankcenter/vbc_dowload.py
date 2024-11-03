@@ -16,11 +16,11 @@ data_email = []
 
 workbook = openpyxl.load_workbook(r"G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
 sheet = workbook["Адреса ВБЦ"]  
-for row in tqdm(range(10,sheet.max_row+1)): # sheet.max_row+1
+for row in tqdm(range(2,152)): # sheet.max_row+1
     sleep(0.01)
     url = sheet.cell(row=row, column=3).value
     response = requests.get(url,headers=headers)
-    sleep(2)                                                         
+    sleep(10)     # 2 секунды мало - дает только 30 записей. Нужно ставить не меньше 10                                                    
     soup = BeautifulSoup(response.text, "lxml")
     filename = soup.title.text
     client_name = filename[0:filename.find(",")-1]
@@ -30,14 +30,17 @@ for row in tqdm(range(10,sheet.max_row+1)): # sheet.max_row+1
         email_links = soup.find_all(href=re.compile("mailto:"))
         for item in email_links:
             if item.text.strip() != "client@vbankcenter.ru":
-                email = item.text.strip()                         
+                if "tensor.ru" in item.text:
+                    email = "-"
+                else:
+                    email = item.text.strip()                         
     except:    
         continue
     
     data_email.append([client_name,ogrn,email])
-    df_email = pd.DataFrame(data_email, columns =['client_name', 'ogrn', 'email'])
-    df_email.to_excel('Vbankcenter/VBC_email.xlsx', index=True)
-  
+    df_email = pd.DataFrame(data_email)
+    df_email.to_excel('Vbankcenter/VBC_email.xlsx', index=False)
+print("Нужно сменить IP")  
     # Если не работает, то добавить sleep 12 секунд
 
 
