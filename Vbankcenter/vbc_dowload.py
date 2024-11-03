@@ -16,14 +16,12 @@ data_email = []
 
 workbook = openpyxl.load_workbook(r"G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
 sheet = workbook["Адреса ВБЦ"]  
-for row in range(2,3): # sheet.max_row+1
+for row in tqdm(range(10,sheet.max_row+1)): # sheet.max_row+1
     sleep(0.01)
     url = sheet.cell(row=row, column=3).value
-    # response = requests.get(url,headers=headers)
-    # sleep(2)                                                         
-    with open('Vbankcenter/test.html', "r", encoding="utf-8") as f:
-        data = f.read()
-    soup = BeautifulSoup(data, "lxml")
+    response = requests.get(url,headers=headers)
+    sleep(2)                                                         
+    soup = BeautifulSoup(response.text, "lxml")
     filename = soup.title.text
     client_name = filename[0:filename.find(",")-1]
     ogrn = url.replace("https://vbankcenter.ru/contragent/", "")
@@ -33,16 +31,13 @@ for row in range(2,3): # sheet.max_row+1
         for item in email_links:
             if item.text.strip() != "client@vbankcenter.ru":
                 email = item.text.strip()                         
-        print(email)
     except:    
         continue
     
-    # data_email.append([client_name,ogrn,email])
-    # # # Create a DataFrame from the list
-    # df_email = pd.DataFrame(data_email, columns =['client_name', 'ogrn', 'email'])
-    # df_email.to_excel('SBIS download/Sbis_email.xlsx', index=True)
-
-
+    data_email.append([client_name,ogrn,email])
+    df_email = pd.DataFrame(data_email, columns =['client_name', 'ogrn', 'email'])
+    df_email.to_excel('Vbankcenter/VBC_email.xlsx', index=True)
+  
     # Если не работает, то добавить sleep 12 секунд
 
 
