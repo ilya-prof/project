@@ -28,8 +28,11 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
         print('Продолжить?')
         req = requests.get(url_start, headers=headers)
         soup=BeautifulSoup(req.text,"lxml")
-    url = soup.find("a", class_="company-name-highlight").get("href")
-    sleep(2)
+    try:
+        url = soup.find("a", class_="company-name-highlight").get("href")
+        sleep(2)
+    except:
+         next
     # Проходим на страницу компании
     try:
         req2 = requests.get(url, headers=headers)
