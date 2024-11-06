@@ -12,18 +12,24 @@ headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
 }
 # Делаем цикл:
-book = openpyxl.open('RBC/book.xlsx')
-sheet = book.active
+workbook = openpyxl.load_workbook(r"G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
+sheet = workbook["Адреса РБК"] 
 for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)  
     time.sleep(0.01) 
-    url_start = sheet[row][0].value
+    url_start = sheet.cell(row=row, column =3).value
     
     # Ищем ссылку на страницу компании
-    req = requests.get(url_start, headers=headers)
-    soup=BeautifulSoup(req.text,"lxml")
+    try:
+        req = requests.get(url_start, headers=headers)
+        soup=BeautifulSoup(req.text,"lxml")
+        sleep(2)
+    except:
+        print("Необходимо изменить IP!!!")
+        print('Продолжить?')
+        req = requests.get(url_start, headers=headers)
+        soup=BeautifulSoup(req.text,"lxml")
     url = soup.find("a", class_="company-name-highlight").get("href")
     sleep(2)
-
     # Проходим на страницу компании
     try:
         req2 = requests.get(url, headers=headers)
@@ -40,7 +46,9 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
     contacts = soup2.find_all('span', class_="copy-text")
     for item in contacts:
         if '@' in item.text: 
-            email = item.text.strip().lower()
+            if "tensor.ru" in item.text:
+                            email = "Нет"
+            else: email = item.text.strip().lower()
             break
         else:
             email = "Нет"
@@ -48,7 +56,4 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
     # Все заводим в список
     data_list.append([name,ogrn,inn,email])
     df_email = pd.DataFrame(data_list, columns =['name','ogrn','inn','email'])
-    df_email.to_excel('RBC/RBC_email.xlsx', index=True)
-# Create a DataFrame from the list
-# df_email = pd.DataFrame(data_list, columns =['name','inn','email'])
-# df_email.to_excel('RBC/RBC_email.xlsx', index=True)
+    df_email.to_excel(r"D:\Download\RBC_email.xlsx", index=False)

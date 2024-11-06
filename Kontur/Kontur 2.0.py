@@ -26,7 +26,9 @@ for filename in os.listdir(folder_path):
                 email_links = soup.find_all(class_="_2DJgz Ps02p")
                 for item in email_links:
                     if "@" in item.text:
-                        email = item.text
+                         if "tensor.ru" in item.text:
+                            email = "-"
+                         else: email = item.text
                 data_email.append([client_name,inn,email])
                 count += 1
             else:
