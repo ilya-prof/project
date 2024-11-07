@@ -45,18 +45,15 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
     inn = pre_inn[pre_inn.find("ИНН ")+4:pre_inn.find(" — адрес")].strip()
     name = pre_inn[:pre_inn.find(" — ")].strip() 
     ogrn = pre_inn[pre_inn.find("ОГРН")+5:pre_inn.find(",")].strip()
-    # Находим email
-    contacts = soup2.find_all('span', class_="copy-text")
-    for item in contacts:
-        if '@' in item.text: 
-            if "tensor.ru" in item.text:
-                            email = "Нет"
-            else: email = item.text.strip().lower()
-            break
-        else:
+    # Находим email 
+    try:
+        email = soup2.find(string="E-mail").next_element.text.strip().lower()
+        if "tensor.ru" in email:
             email = "Нет"
+    except:
+        email = "Нет"
     
     # Все заводим в список
     data_list.append([name,ogrn,inn,email])
     df_email = pd.DataFrame(data_list, columns =['name','ogrn','inn','email'])
-    df_email.to_excel(r"D:\Download\RBC_email.xlsx", index=False)
+    df_email.to_excel(r"g:\Мой диск\ПР лизинг\База клиентов\Email\RBC_email.xlsx", index=False)

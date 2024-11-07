@@ -11,11 +11,11 @@ headers = {
 }
 data_email = []
 
-book = openpyxl.open("SBIS download/book.xlsx")
-sheet = book.active
-for row in tqdm(range(1,sheet.max_row+1)): # sheet.max_row+1
+workbook = openpyxl.load_workbook(r"G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
+sheet = workbook["Адреса СБИС"]
+for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
     sleep(0.01) 
-    url = sheet[row][0].value
+    url = sheet.cell(row,3).value
     response = requests.get(url,headers=headers)
     sleep(2)                                                         
     soup = BeautifulSoup(response.text, "lxml")
@@ -34,7 +34,7 @@ for row in tqdm(range(1,sheet.max_row+1)): # sheet.max_row+1
     data_email.append([client_name,inn,email])
     # # Create a DataFrame from the list
     df_email = pd.DataFrame(data_email, columns =['client_name', 'inn', 'email'])
-    df_email.to_excel('SBIS download/Sbis_email.xlsx', index=True)
+    df_email.to_excel(r"g:\Мой диск\ПР лизинг\База клиентов\Email\Sbis_email.xlsx", index=False)
 
 
     # Если не работает, то добавить sleep 12 секунд
