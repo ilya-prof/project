@@ -1,11 +1,12 @@
 from openpyxl import Workbook
-import re
 import openpyxl
 from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-from tqdm import tqdm   
+from tqdm import tqdm
+import winsound
+   
  
 headers = {
     "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
@@ -26,6 +27,7 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     try:
         url = "https://www.list-org.com/" + soup.find('div', class_="org_list").find("a").get("href")
     except:
+        winsound.Beep(frequency=1500,duration=1000)
         input(r"Нужно пройти Каптчу!!! Продолжить???")
         req = requests.get(url_start, headers=headers)
         sleep(1)
@@ -50,7 +52,8 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     df_email = pd.DataFrame(data_email)
     df_email.to_excel(r'g:\Мой диск\ПР лизинг\База клиентов\Email\List_email.xlsx', index=False)
 
-
+winsound.Beep(frequency=1500,duration=1000)
+print("Готово")
 
 
 

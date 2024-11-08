@@ -25,9 +25,7 @@ for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
         sleep(9)     # если меньше 9 секунд - дает только 30 записей
         soup = BeautifulSoup(response.text, "lxml")
     except:
-        frequency = 2500  # Set Frequency To 2500 Hertz
-        duration = 500  # Set Duration To 1000 ms == 1 second
-        winsound.Beep(frequency, duration)
+        winsound.Beep(frequency=1500,duration=1000)
         print("Нужно сменить IP")  
         input("Продолжить? Нажмите ENTER")  
         response = requests.get(url,headers=headers)
@@ -51,7 +49,7 @@ for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
     df_email = pd.DataFrame(data_email)
     df_email.to_excel('g:\Мой диск\ПР лизинг\База клиентов\Email\VBC_email.xlsx', index=False)
 
-    # Если не работает, то добавить sleep 12 секунд
+winsound.Beep(frequency=1500,duration=1000)   # Если не работает, то добавить sleep 12 секунд
 
 
 
