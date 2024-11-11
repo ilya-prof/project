@@ -44,7 +44,7 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     client_name = pre_inn[:pre_inn.find(",")].strip() 
         # Находим email
     try:
-        email = soup2.find('a', class_="wwbw").get("href").replace('mailto:', "").strip()
+        email = soup2.find('a', class_="wwbw").get("href").replace('mailto:', "").replace(',',";").strip()
     except:
         email = "Нет" 
         

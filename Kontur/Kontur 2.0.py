@@ -18,7 +18,7 @@ for filename in os.listdir(folder_path):
             src = file.read()
             soup = BeautifulSoup(src, "lxml")
             filename = soup.title.text
-            full_download = soup.find(class_="_1IKlC")
+            full_download = soup.find(class_="_1hbFS")
             if full_download is not None:
                 email ='-'
                 inn = filename[filename.find("ИНН ")+4:filename.find(", ОГРН")]
