@@ -1,4 +1,5 @@
 from openpyxl import Workbook
+from captcha import patcha
 import openpyxl
 from time import sleep
 import pandas as pd
@@ -12,7 +13,6 @@ headers = {
     "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
 }
-
 
 data_email = []
 workbook = openpyxl.load_workbook(r"G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
@@ -28,11 +28,12 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
         url = "https://www.list-org.com/" + soup.find('div', class_="org_list").find("a").get("href")
     except:
         winsound.Beep(frequency=1500,duration=1000)
+        patcha()
         input(r"Нужно пройти Каптчу!!! Продолжить???")
         req = requests.get(url_start, headers=headers)
         sleep(1)
         soup=BeautifulSoup(req.text,"lxml")
-        url = "https://www.list-org.com/" + soup.find('div', class_="org_list").find("a").get("href")
+        url = "https://www.list-org.com" + soup.find('div', class_="org_list").find("a").get("href")
     # Проходим на страницу компании
     req2 = requests.get(url, headers=headers)
     sleep(1)

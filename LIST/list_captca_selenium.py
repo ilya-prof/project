@@ -1,9 +1,11 @@
 from openpyxl import Workbook
+
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
 from time import sleep
 from selenium.webdriver.chrome.options import Options
+
 
 o = Options()
 o.add_experimental_option("detach", True)
@@ -11,7 +13,7 @@ driver = webdriver.Chrome(options=o)
 driver.get("file:///D:/Download/List-Org.html")
 
 text_title = driver.find_element_by_xpath("")
-rint (text_title)
+print (text_title)
 
 
 
