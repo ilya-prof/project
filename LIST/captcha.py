@@ -49,14 +49,14 @@ def patcha():
     keyboard.release(Key.tab)
 
     # нажатие ввод
-    mouse.position = (679, 466)
-    mouse.press(Button.left)
-    sleep(0.5)
-    mouse.release(Button.left)
-    sleep(0.5)
-    keyboard.press(key=Key.enter)
-    sleep(0.5)
-    keyboard.release(key=Key.enter)
+    # mouse.position = (679, 466)
+    # mouse.press(Button.left)
+    # sleep(0.5)
+    # mouse.release(Button.left)
+    # sleep(0.5)
+    # keyboard.press(key=Key.enter)
+    # sleep(0.5)
+    # keyboard.release(key=Key.enter)
 
 
 

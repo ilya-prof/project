@@ -29,7 +29,8 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     except:
         winsound.Beep(frequency=1500,duration=1000)
         patcha()
-        input(r"Нужно пройти Каптчу!!! Продолжить???")
+        sleep(1)
+        # input(r"Нужно пройти Каптчу!!! Продолжить???")
         req = requests.get(url_start, headers=headers)
         sleep(1)
         soup=BeautifulSoup(req.text,"lxml")
