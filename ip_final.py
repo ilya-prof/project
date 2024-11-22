@@ -1,6 +1,6 @@
 import requests
 import tkinter as tk
-vnvn
+
 country = str('RUSSIA') 
 proxies = {
     'http': '163.198.214.219:8000',
