@@ -28,6 +28,8 @@ for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
         for item in email_links:
             if "@" in item.text:
                 email = item.text.strip()
+                if "tensor.ru" in email:
+                    email = "-"
     except:
         continue
     
