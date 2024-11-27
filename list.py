@@ -47,8 +47,7 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
         # Находим email
     try:
         email = soup2.find('a', class_="wwbw").get("href").replace('mailto:', "").replace(',',";").strip()
-        if "tensor.ru" in email:
-            email = "Нет"
+        
     except:
         email = "Нет" 
         
