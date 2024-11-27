@@ -27,9 +27,9 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     try:
         url = "https://www.list-org.com/" + soup.find('div', class_="org_list").find("a").get("href")
     except:
-        winsound.Beep(frequency=1500,duration=1000)
+        # winsound.Beep(frequency=1500,duration=1000)
         patcha()
-        sleep(1)
+        # sleep(1)
         # input(r"Нужно пройти Каптчу!!! Продолжить???")
         req = requests.get(url_start, headers=headers)
         sleep(1)
@@ -47,6 +47,8 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
         # Находим email
     try:
         email = soup2.find('a', class_="wwbw").get("href").replace('mailto:', "").replace(',',";").strip()
+        if "tensor.ru" in email:
+            email = "Нет"
     except:
         email = "Нет" 
         
