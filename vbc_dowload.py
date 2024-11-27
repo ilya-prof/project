@@ -14,11 +14,17 @@ headers = {
 }
 
 data_email = []
-
 workbook = openpyxl.load_workbook("G:\Мой диск\ПР лизинг\База клиентов\Email\Адреса для скачивания.xlsm", data_only=True)
 sheet = workbook["Адреса ВБЦ"]  
+сounter = 0
 for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
     sleep(0.01)
+    сounter += 1
+    if сounter == 150:
+        winsound.Beep(frequency=1500,duration=1000)
+        print("Нужно сменить IP")  
+        input("Продолжить? Нажмите ENTER")
+        counter=1  
     url = sheet.cell(row=row, column=3).value
     try:
         response = requests.get(url,headers=headers)
@@ -27,7 +33,8 @@ for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
     except:
         winsound.Beep(frequency=1500,duration=1000)
         print("Нужно сменить IP")  
-        input("Продолжить? Нажмите ENTER")  
+        input("Продолжить? Нажмите ENTER")
+        counter =1  
         response = requests.get(url,headers=headers)
         soup = BeautifulSoup(response.text, "lxml")
     filename = soup.title.text
