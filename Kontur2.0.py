@@ -23,14 +23,14 @@ for filename in os.listdir(folder_path):
             filename = soup.title.text
             full_download = soup.find('span',class_="_1hbFS")
             if full_download is not None:
-                email ='-'
+                email ='Нет'
                 inn = filename[filename.find("ИНН ")+4:filename.find(", ОГРН")]
                 client_name = filename[0:filename.find(",")]
                 email_links = soup.find_all(class_="_2DJgz Ps02p")
                 for item in email_links:
                     if "@" in item.text:
                          if "tensor.ru" in item.text:
-                            email = "-"
+                            email = "Нет"
                          else: email = item.text
                 data_email.append([client_name,inn,email])
                 count += 1
