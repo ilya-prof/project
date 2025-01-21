@@ -22,14 +22,14 @@ for row in tqdm(range(2,sheet.max_row+1)): # sheet.max_row+1
     filename = soup.title.text
     client_name = filename[0:filename.find("ИНН")-1]
     inn = url.replace("https://saby.ru/profile/", "")
-    email = "-"
+    email = "Нет"
     try:
         email_links = soup.find_all(class_="contractorCard-ContactItem__text")
         for item in email_links:
             if "@" in item.text:
                 email = item.text.strip()
                 if "tensor.ru" in email:
-                    email = "-"
+                    email = "Нет"
     except:
         continue
     
