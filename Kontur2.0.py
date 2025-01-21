@@ -10,7 +10,10 @@ folder_path = "D:/Download/Контур/"
 data_email = []
 count = 0
 fault = 0
-total = len(os.listdir(folder_path))
+try: total = len(os.listdir(folder_path))
+except:
+    folder_path = "C:/Download/Контур/"
+    total = len(os.listdir(folder_path))
 for filename in os.listdir(folder_path):
     if os.path.isfile(os.path.join(folder_path, filename)):
         file_path = os.path.join(folder_path, filename)
@@ -18,7 +21,7 @@ for filename in os.listdir(folder_path):
             src = file.read()
             soup = BeautifulSoup(src, "lxml")
             filename = soup.title.text
-            full_download = soup.find(class_="_1hbFS")
+            full_download = soup.find('span',class_="_1hbFS")
             if full_download is not None:
                 email ='-'
                 inn = filename[filename.find("ИНН ")+4:filename.find(", ОГРН")]
