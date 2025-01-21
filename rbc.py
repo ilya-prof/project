@@ -42,7 +42,7 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
         break
     #Находим ИНН, ОГРН и название
     pre_inn = soup2.title.text
-    inn = pre_inn[pre_inn.find("ИНН ")+4:pre_inn.find(" — адрес")].strip()
+    inn = pre_inn[pre_inn.find("ИНН ")+4:pre_inn.find(" —")].strip()
     name = pre_inn[:pre_inn.find(" — ")].strip() 
     ogrn = pre_inn[pre_inn.find("ОГРН")+5:pre_inn.find(",")].strip()
     # Находим email 
