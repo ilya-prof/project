@@ -35,7 +35,7 @@ def patcha():
     sleep(2)
 
     # наведение на кнопку и нажатие 
-    mouse.position = (103, 369)
+    mouse.position = (114, 348) # Для Мега компа 
     mouse.press(Button.left)
     sleep(0.5)
     mouse.release(Button.left)
@@ -56,7 +56,8 @@ def patcha():
     # sleep(0.5)
     # keyboard.press(key=Key.enter)
     # sleep(0.5)
-    # keyboard.release(key=Key.enter)
+    # keyboard.release(key=Key.r)
 
 
-
+if __name__ == "__main__":
+    patcha()

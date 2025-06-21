@@ -31,15 +31,18 @@ for row in tqdm(range(2,sheet.max_row+1)): #sheet.max_row+1)
     try:
         url = soup.find("a", class_="company-name-highlight").get("href")
         sleep(2)
-    except:
-         next
+    except Exception as err:
+        print(err)
+        continue       
+        
     # Проходим на страницу компании
     try:
         req2 = requests.get(url, headers=headers)
         sleep(2)
         soup2 = BeautifulSoup(req2.text,"lxml")
-    except:
-        break
+    except Exception as err:
+        print(err)
+    
     #Находим ИНН, ОГРН и название
     pre_inn = soup2.title.text
     inn = pre_inn[pre_inn.find("ИНН ")+4:pre_inn.find(" —")].strip()

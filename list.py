@@ -8,7 +8,7 @@ import requests
 from tqdm import tqdm
 import winsound
    
- 
+# При текущих настройках почему-то делает только 300 загрузок с 1 IP... 
 headers = {
     "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
     "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
@@ -27,7 +27,6 @@ for row in tqdm(range(2, sheet.max_row+1)): # sheet.max_row+1
     try:
         url = "https://www.list-org.com/" + soup.find('div', class_="org_list").find("a").get("href")
     except:
-        # winsound.Beep(frequency=1500,duration=1000)
         patcha()
         # sleep(1)
         # input(r"Нужно пройти Каптчу!!! Продолжить???")
