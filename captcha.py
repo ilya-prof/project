@@ -6,7 +6,9 @@ mouse = MouseController()
 keyboard = KeyboardController()
 
 # Переход в другое окно
-def patcha():
+def patcha(place):
+    
+    """Нажатие на чек бокс и переход на ввод"""
     keyboard.press(Key.alt_l)
     keyboard.press(Key.tab)
     sleep(0.5)
@@ -26,16 +28,24 @@ def patcha():
     keyboard.release(key=Key.enter)
     sleep(2)
 
-    # наведение курсора на ячейку и нажатие кнопки мыши
+    # наведение курсора на чек бокс и нажатие кнопки мыши
     # окно 80% в Chrome
-    mouse.position = (71, 286)
+    if place == 'Mega':
+        mouse.position = (71, 286) # Для Мега компа
+    if place == 'Home':
+        mouse.position = (61, 333) # Для домашнего компа
+    
     mouse.press(Button.left)
     sleep(0.5)
     mouse.release(Button.left)
     sleep(2)
 
-    # наведение на кнопку и нажатие 
-    mouse.position = (114, 348) # Для Мега компа 
+    # наведение на кнопку "Проверить!" и нажатие 
+    if place == 'Mega':
+        mouse.position = (114, 348) # Для Мега компа 
+    if place == 'Home':
+        mouse.position = (100,437) # Для домашнего компа 
+    
     mouse.press(Button.left)
     sleep(0.5)
     mouse.release(Button.left)
@@ -60,4 +70,4 @@ def patcha():
 
 
 if __name__ == "__main__":
-    patcha()
+    patcha(place='Home')
